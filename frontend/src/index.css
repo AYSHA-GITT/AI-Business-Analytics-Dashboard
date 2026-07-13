@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #0A0A0F;
+  --color-surface: #13131C;
+  --color-paper: #FFFFFF;
+  --color-mist: #9CA3AF;
+  --color-amber: #F5A623;
+  --color-violet: #8B5CF6;
+  --color-teal: #2DD4BF;
+  --color-rose: #F43F5E;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-void);
+  margin: 0;
+  color: #fff;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glow-text {
+  background: linear-gradient(135deg, #F5A623 0%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-btn {
+  background: linear-gradient(135deg, #F5A623 0%, #8B5CF6 100%);
+  box-shadow: 0 0 30px rgba(245, 166, 35, 0.35);
+}
+
+.glow-btn:hover {
+  box-shadow: 0 0 45px rgba(139, 92, 246, 0.5);
+}
+
+.bg-orbs {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+}
