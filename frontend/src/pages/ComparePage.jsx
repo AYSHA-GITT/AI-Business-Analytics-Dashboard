@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import axios from "axios";
+import api from "../api";
 import toast from "react-hot-toast";
 
 function ComparePage() {
@@ -20,9 +20,9 @@ function ComparePage() {
     formData.append("label_b", labelB);
     setLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/compare", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await api.post("/api/compare", formData, {
+  headers: { "Content-Type": "multipart/form-data" },
+});
       setResult(response.data);
     } catch (error) {
       toast.error(error.response?.data?.detail || "Comparison failed");

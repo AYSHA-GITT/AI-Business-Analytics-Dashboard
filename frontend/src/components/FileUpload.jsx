@@ -1,9 +1,9 @@
 import { useState, useCallback, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext";
+import api from "../api";
 
 const modes = [
   { value: "sales", label: "Sales" },
@@ -31,14 +31,14 @@ function FileUpload({ onUploadSuccess }) {
   const pollTaskStatus = (taskId) => {
     pollRef.current = setInterval(async () => {
       try {
-        const res = await axios.get(`http://127.0.0.1:8000/api/task-status/${taskId}`);
+        const res = await api.get(`/api/task-status/${taskId}`);
         const { state, step, result, error } = res.data;
 
         if (state === "PROCESSING") {
           setStatusText(stepLabels[step] || "Processing…");
         } else if (state === "SUCCESS") {
           clearInterval(pollRef.current);
-          await axios.post("http://127.0.0.1:8000/api/activate-dataset", {
+          await api.post("/api/activate-dataset", {
             temp_path: result.temp_path,
             filename: result.filename,
           });
@@ -74,7 +74,7 @@ function FileUpload({ onUploadSuccess }) {
     setStatusText("Uploading…");
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/upload-async", formData, {
+      const response = await api.post("/api/upload-async", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setStatusText("Queued…");
@@ -109,9 +109,7 @@ function FileUpload({ onUploadSuccess }) {
             whileHover={{ scale: uploading ? 1 : 1.05 }}
             whileTap={{ scale: uploading ? 1 : 0.95 }}
             className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors disabled:opacity-40 ${
-              mode === m.value
-                ? "glow-btn text-white border-transparent"
-                : "glass text-mist hover:text-white"
+              mode === m.value ? "glow-btn text-white border-transparent" : "glass text-mist hover:text-white"
             }`}
           >
             {m.label}

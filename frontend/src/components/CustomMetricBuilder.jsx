@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
+import api from "../api";
 import toast from "react-hot-toast";
 
 function CustomMetricBuilder({ numericColumns }) {
@@ -12,7 +12,7 @@ function CustomMetricBuilder({ numericColumns }) {
     if (!formula.trim()) return;
     setLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/custom-metric", { formula });
+      const response = await api.post("/api/custom-metric", { formula });
       if (response.data.error) {
         toast.error(response.data.error);
       } else {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
+import api from "../api";
 import toast from "react-hot-toast";
 
 function DataChat() {
@@ -18,7 +18,8 @@ function DataChat() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/chat", { question: userQuestion });
+      const response = await api.post("/api/chat", { question: userQuestion });
+
       setMessages((prev) => [...prev, { type: "answer", text: response.data.answer }]);
     } catch (error) {
       const message = error.response?.data?.detail || "Something went wrong";
