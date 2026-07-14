@@ -3,10 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routes import upload, chat, simulate, compare, upload_async, custom_metric
 
 app = FastAPI(title="AI Business Dashboard API")
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://ai-business-analytics-dashboard-kct0wrclf-aysha-gitts-projects.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
